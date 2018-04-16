@@ -1,6 +1,7 @@
 package slacksend
 
 import (
+	"io/ioutil"
 	"github.com/TIBCOSoftware/flogo-contrib/action/flow/test"
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"log"
