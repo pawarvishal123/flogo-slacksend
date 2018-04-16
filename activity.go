@@ -1,7 +1,6 @@
 package slacksend
 
 import (
-	"fmt"
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
 	"github.com/nlopes/slack"
