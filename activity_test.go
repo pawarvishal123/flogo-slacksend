@@ -1,4 +1,4 @@
-package slacksend
+package flogo-slacksend
 
 import (
 	"log"
