@@ -12,7 +12,7 @@ var flogoLogger = logger.GetLogger("activity-tibco-slacksend")
 
 // MyActivity is a stub for your Activity implementation
 type SlackSendActivity struct {
-	metadata        *activity.Metadata
+	metadata *activity.Metadata
 }
 
 // NewActivity creates a new activity
@@ -31,9 +31,9 @@ func (a *SlackSendActivity) Metadata() *activity.Metadata {
 func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error) {
 		flogoLogger.Debugf("SlackSend Eval")
 	
-		accesstoken := context.GetInput("AccessToken")
-		message := context.GetInput("Message")
-		channel := context.GetInput("Channel")
+		accesstoken := context.GetInput("AccessToken").(string)
+		message := context.GetInput("Message").(string)
+		channel := context.GetInput("Channel").(string)
 		
 		api := slack.New(accesstoken)
 		params := slack.PostMessageParameters{}
@@ -59,6 +59,5 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 		context.SetOutput("timestamp", timestamp)
 		flogoLogger.Debugf("Message successfully sent to channel %s at %s", channelID, timestamp)
 		return true, nil
-	}
-	return false, fmt.Errorf("SlackSend called without a message to publish")
 }
+	
