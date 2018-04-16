@@ -1,12 +1,11 @@
-package flogo-slacksend
+package slacksend
 
 import (
-	"log"
-	"testing"
 	"github.com/TIBCOSoftware/flogo-contrib/action/flow/test"
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
+	"log"
+	"testing"
 )
-
 
 var activityMetadata *activity.Metadata
 

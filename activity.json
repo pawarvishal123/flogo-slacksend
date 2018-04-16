@@ -1,5 +1,5 @@
 {
-  "name": "flogo-slacksend",
+  "name": "slacksend",
   "version": "0.0.1",
   "title": "Send Slack message",
   "type": "flogo:activity",
