@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "title": "Send Slack message",
   "type": "flogo:activity",
-  "ref": "github.com/pawarvishal123/flogo-slacksend",
+  "ref": "github.com/pawarvishal123/slacksend",
   "description": "Publish a message to a Slack Channel",
   "author": "Vishal Pawar <vpawar@tibco.com>",
   "input":[
