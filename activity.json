@@ -1,0 +1,32 @@
+{
+  "name": "tibco-slacksend",
+  "version": "0.0.1",
+  "title": "Send Slack message",
+  "type": "flogo:activity",
+  "ref": "github.com/pawarvishal123/flogo-slacksend",
+  "description": "Publish a message to a Slack Channel",
+  "author": "Vishal Pawar <vpawar@tibco.com>",
+  "input":[
+    {
+      "name": "AccessToken",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "Channel",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "Message",
+      "type": "string",
+      "required": true
+    }
+  ],
+  "output": [
+    {
+      "name": "timestamp",
+      "type": "string"
+    }
+  ]
+}
