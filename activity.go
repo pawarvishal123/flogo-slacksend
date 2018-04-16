@@ -2,8 +2,6 @@ package slacksend
 
 import (
 	"fmt"
-	"os"
-
 	"github.com/nlopes/slack"
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
@@ -55,7 +53,7 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 		//params.Attachments = []slack.Attachment{attachment}
 		channelID, timestamp, err := api.PostMessage(channel, message, params)
 		if err != nil {
-			fmt.Printf("%s\n", err)
+			fmt.Errorf("%s\n", err)
 			return
 		}
 		context.SetOutput("timestamp", timestamp)
