@@ -1,8 +1,3 @@
----
-title: Send Slack Message
-weight: 4613
----
-
 # Send Slack Message
 This activity allows you to send a message on slack channel
 
