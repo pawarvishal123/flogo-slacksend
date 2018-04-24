@@ -4,6 +4,7 @@ import (
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
 	"github.com/nlopes/slack"
+	"encoding/json"
 )
 
 // log is the default package logger
@@ -35,20 +36,15 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 
 	api := slack.New(accesstoken)
 	params := slack.PostMessageParameters{}
-	/*attachment := slack.Attachment{
-	Pretext: "Flogo",
-	Text:    message,
-	// Uncomment the following part to send a field too
-	/*
-		Fields: []slack.AttachmentField{
-			slack.AttachmentField{
-				Title: "a",
-				Value: "no",
-			},
-		},
-	*/
-	//}
-	//params.Attachments = []slack.Attachment{attachment}
+	
+	if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok && len(attachments) > 0 {
+		params.Attachments = []slack.Attachment{}
+		for _, attachElem := range attachments {
+			fmt.Printf("\n json object:::: %+v", attachElem)
+			params.Attachments = append(params.Attachments, attachElem)
+		}
+	}
+	
 	channelID, timestamp, err := api.PostMessage(channel, message, params)
 	if err != nil {
 		flogoLogger.Debugf("%s\n", err)
