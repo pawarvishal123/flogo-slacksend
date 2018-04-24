@@ -39,6 +39,7 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 	
 	//attachment := context.GetInput("Attachment").(map[string]string)
 	fmt.Printf("\n Attachment: %+v", context.GetInput("Attachment"))
+	fmt.Printf("\n Attachments[attachment]: %+v", context.GetInput("Attachment")["attachments"])
 	
 	if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok {
 		fmt.Printf("\n\n attachments json object:::: %+v", attachments)
