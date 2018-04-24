@@ -37,17 +37,17 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 	api := slack.New(accesstoken)
 	params := slack.PostMessageParameters{}
 	
-	attachment := context.GetInput("Attachment").(map[string]string)
-	fmt.Printf("\n Attachment: %+v", attachment)
+	//attachment := context.GetInput("Attachment").(map[string]string)
+	fmt.Printf("\n Attachment: %+v", context.GetInput("Attachment"))
 	
-	//if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok {
-	//fmt.Printf("\n attachments json object:::: %+v", attachments)
-	params.Attachments = []slack.Attachment{}
-	for _, attachElem := range attachment["attachments"] {
-		fmt.Printf("\n attachElem json object:::: %+v", attachElem)
-		params.Attachments = append(params.Attachments, attachElem)
+	if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok {
+		fmt.Printf("\n attachments json object:::: %+v", attachments)
+		params.Attachments = []slack.Attachment{}
+		for _, attachElem := range attachments["attachments"] {
+			fmt.Printf("\n attachElem json object:::: %+v", attachElem)
+			params.Attachments = append(params.Attachments, attachElem)
+		}
 	}
-	//}
 	
 	channelID, timestamp, err := api.PostMessage(channel, message, params)
 	if err != nil {
