@@ -5,6 +5,7 @@ import (
 	"github.com/TIBCOSoftware/flogo-lib/logger"
 	"github.com/nlopes/slack"
 	"fmt"
+	"encoding/json"
 )
 
 // log is the default package logger
@@ -36,42 +37,25 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 
 	api := slack.New(accesstoken)
 	params := slack.PostMessageParameters{}
-	params.Attachments = []slack.Attachment{}
 	
-	//attachment := context.GetInput("Attachment").(map[string]string)
-	fmt.Printf("\n Attachment: %+v", context.GetInput("Attachment"))
-	attachments := context.GetInput("Attachment")
-	for _, attachElem := range attachments["attachments"] {
-		fmt.Printf("\n attachElem: %+v", attachElem)
-		attachment := slack.Attachment{
-			Pretext: attachElem["pretext"],
-			Text:    attachElem["text"]
-			/*Fields: []slack.AttachmentField{
-				slack.AttachmentField{
-					Title: "a",
-					Value: "no",
-				},
-			},*/
-		}
-		params.Attachments = append(params.Attachments, attachment)
-	}
-	
-	/*	
-	if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok {
-		fmt.Printf("\n\n attachments json object:::: %+v", attachments)
-		params.Attachments = []slack.Attachment{}
-		for _, attachElem := range attachments["attachments"] {
-			fmt.Printf("\n attachElem json object:::: %+v", attachElem)
-			params.Attachments = append(params.Attachments, attachElem)
-		}
-	} else {
-		fmt.Printf("Can not parse message attachment content...")
+	attachments := context.GetInput("Attachment").(string)
+	attachStruct := make(map[string][]slack.Attachment)
+	errjson := json.Unmarshal([]byte(attachments), &attachStruct)
+
+	if errjson != nil {
+		flogoLogger.Errorf("%s\n", errjson)
 		return
 	}
-	*/
+
+	params.Attachments = []slack.Attachment{}
+	for _, attachElem := range attachStruct["attachments"] {
+		fmt.Printf("\n\n json object:::: %+v", attachElem)
+		params.Attachments = append(params.Attachments, attachElem)
+	}
+	
 	channelID, timestamp, err := api.PostMessage(channel, message, params)
 	if err != nil {
-		flogoLogger.Debugf("%s\n", err)
+		flogoLogger.Errorf("%s\n", err)
 		return
 	}
 	context.SetOutput("timestamp", timestamp)
