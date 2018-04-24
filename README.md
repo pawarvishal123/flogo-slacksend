@@ -29,6 +29,10 @@ Inputs and Outputs:
       "name": "Message",
       "type": "string",
       "required": true
+    },
+    {
+      "name": "Attachment",
+      "type": "string"
     }
   ],
   "output": [
@@ -46,3 +50,4 @@ Inputs and Outputs:
 | AccessToken  | True     | The Access Token from Slack |
 | Channel       | True     | Name of the slack channel |
 | Message     | True     | The text message to send |
+| Attachment     | False     | Message Attachment |
