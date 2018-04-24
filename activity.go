@@ -35,7 +35,7 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 	channel := context.GetInput("Channel").(string)
 
 	api := slack.New(accesstoken)
-	/*params := slack.PostMessageParameters{}
+	params := slack.PostMessageParameters{}
 	
 	//attachment := context.GetInput("Attachment").(map[string]string)
 	fmt.Printf("\n Attachment: %+v", context.GetInput("Attachment"))
@@ -50,9 +50,9 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 	} else {
 		fmt.Printf("Can not parse message attachment content...")
 		return
-	}*/
+	}
 	
-	channelID, timestamp, err := api.PostMessage(channel, message, context.GetInput("Attachment"))
+	channelID, timestamp, err := api.PostMessage(channel, message, params)
 	if err != nil {
 		flogoLogger.Debugf("%s\n", err)
 		return
