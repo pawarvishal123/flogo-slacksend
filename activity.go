@@ -52,6 +52,7 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 					Value: "no",
 				},
 			},*/
+		}
 		params.Attachments = append(params.Attachments, attachment)
 	}
 	
