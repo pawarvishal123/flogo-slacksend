@@ -36,17 +36,26 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 
 	api := slack.New(accesstoken)
 	params := slack.PostMessageParameters{}
+	params.Attachments = []slack.Attachment{}
 	
 	//attachment := context.GetInput("Attachment").(map[string]string)
 	fmt.Printf("\n Attachment: %+v", context.GetInput("Attachment"))
-	
-	if context.GetInput("Attachment") != nil {
-		values = context.GetInput("Attachment").(map[string]string)
-		for k, v := range options {
-			fmt.Printf("\n\n Key: %s    Value: %+v", k,v)
-		}
+	attachments := context.GetInput("Attachment")
+	for _, attachElem := range attachments["attachments"] {
+		fmt.Printf("\n attachElem: %+v", attachElem)
+		attachment := slack.Attachment{
+			Pretext: attachElem["pretext"],
+			Text:    attachElem["text"]
+			/*Fields: []slack.AttachmentField{
+				slack.AttachmentField{
+					Title: "a",
+					Value: "no",
+				},
+			},*/
+		params.Attachments = append(params.Attachments, attachment)
 	}
 	
+	/*	
 	if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok {
 		fmt.Printf("\n\n attachments json object:::: %+v", attachments)
 		params.Attachments = []slack.Attachment{}
@@ -58,7 +67,7 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 		fmt.Printf("Can not parse message attachment content...")
 		return
 	}
-	
+	*/
 	channelID, timestamp, err := api.PostMessage(channel, message, params)
 	if err != nil {
 		flogoLogger.Debugf("%s\n", err)
