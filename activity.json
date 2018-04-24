@@ -24,7 +24,7 @@
     },
     {
       "name": "Attachment",
-      "type": "object"
+      "type": "params"
     }
   ],
   "output": [
