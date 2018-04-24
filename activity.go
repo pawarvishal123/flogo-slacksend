@@ -37,7 +37,7 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 	api := slack.New(accesstoken)
 	params := slack.PostMessageParameters{}
 	
-	attachment := context.GetInput("Attachment")
+	attachment := context.GetInput("Attachment").(map[string][]slack.Attachment)
 	fmt.Printf("\n Attachment: %+v", attachment)
 	
 	//if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok {
