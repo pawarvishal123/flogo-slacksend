@@ -4,7 +4,7 @@ import (
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
 	"github.com/nlopes/slack"
-	"encoding/json"
+	"fmt"
 )
 
 // log is the default package logger
