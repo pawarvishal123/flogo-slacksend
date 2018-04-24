@@ -21,6 +21,10 @@
       "name": "Message",
       "type": "string",
       "required": true
+    },
+    {
+      "name": "Attachment",
+      "type": "params"
     }
   ],
   "output": [
