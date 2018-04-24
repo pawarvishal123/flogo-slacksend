@@ -39,20 +39,21 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 	params := slack.PostMessageParameters{}
 	
 	attachments := context.GetInput("Attachment").(string)
-	attachStruct := make(map[string][]slack.Attachment)
-	errjson := json.Unmarshal([]byte(attachments), &attachStruct)
+	if len(attachments) > 0 {
+		attachStruct := make(map[string][]slack.Attachment)
+		errjson := json.Unmarshal([]byte(attachments), &attachStruct)
 
-	if errjson != nil {
-		flogoLogger.Errorf("%s\n", errjson)
-		return
-	}
+		if errjson != nil {
+			flogoLogger.Errorf("%s\n", errjson)
+			return
+		}
 
-	params.Attachments = []slack.Attachment{}
-	for _, attachElem := range attachStruct["attachments"] {
-		fmt.Printf("\n\n json object:::: %+v", attachElem)
-		params.Attachments = append(params.Attachments, attachElem)
+		params.Attachments = []slack.Attachment{}
+		for _, attachElem := range attachStruct["attachments"] {
+			fmt.Printf("\n\n json object:::: %+v", attachElem)
+			params.Attachments = append(params.Attachments, attachElem)
+		}
 	}
-	
 	channelID, timestamp, err := api.PostMessage(channel, message, params)
 	if err != nil {
 		flogoLogger.Errorf("%s\n", err)
