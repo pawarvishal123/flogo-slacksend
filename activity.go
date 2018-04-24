@@ -37,7 +37,7 @@ func (a *SlackSendActivity) Eval(context activity.Context) (done bool, err error
 	api := slack.New(accesstoken)
 	params := slack.PostMessageParameters{}
 	
-	if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok && len(attachments) > 0 {
+	if attachments, ok := context.GetInput("Attachment").(map[string][]slack.Attachment); ok {
 		params.Attachments = []slack.Attachment{}
 		for _, attachElem := range attachments["attachments"] {
 			fmt.Printf("\n json object:::: %+v", attachElem)
