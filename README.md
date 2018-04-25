@@ -96,4 +96,4 @@ Inputs and Outputs:
 ```
 
 ## Third Party Library
-[https://github.com/nlopes/slack](https://github.com/nlopes/slack)
+Slack API in Go - [https://github.com/nlopes/slack](https://github.com/nlopes/slack)
